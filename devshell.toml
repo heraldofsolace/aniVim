@@ -1,0 +1,9 @@
+[[commands]]
+package = "alejandra"
+
+[[commands]]
+package = "treefmt"
+
+[[commands]]
+package = "luaformatter"
+name = "lua-format"

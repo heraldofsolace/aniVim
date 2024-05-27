@@ -1,0 +1,9 @@
+[formatter]
+[formatter.nix]
+command = "alejandra"
+includes = ["*.nix"]
+
+[formatter.lua]
+command = "lua-format"
+includes = ["*.lua"]
+options = ["-i"]
