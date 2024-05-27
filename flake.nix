@@ -329,13 +329,15 @@
     # see :help nixCats.flake.outputs.packageDefinitions
     packageDefinitions = {
       # these also recieve our pkgs variable
-      mynvim = {pkgs, ...} @ misc: {
+      aniVim = {pkgs, ...} @ misc: {
         # see :help nixCats.flake.outputs.settings
         settings = {
           # will check for config in the store rather than .config
           wrapRc = true;
-          configDirName = "mynvim";
+          configDirName = "aniVim";
           aliases = ["neovim"];
+          viAlias = true;
+          vimAlias = true;
           withNodeJs = true;
           disablePythonSafePath = true;
         };
@@ -365,7 +367,7 @@
     };
     # In this section, the main thing you will need to do is change the default package name
     # to the name of the packageDefinitions entry you wish to use as the default.
-    defaultPackageName = "mynvim";
+    defaultPackageName = "aniVim";
   in
     # see :help nixCats.flake.outputs.exports
     forEachSystem (system: let
