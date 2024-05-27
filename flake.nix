@@ -178,6 +178,7 @@
             coq-artifacts
             coq-thirdparty
             nvim-lspconfig
+            dropbar-nvim
           ];
           telescope = with pkgs.vimPlugins; [
             telescope-frecency-nvim
@@ -222,7 +223,7 @@
             wildfire-vim
             editorconfig-nvim
             lush-nvim
-            hop-nvim
+            # flash-nvim
             trouble-nvim
             chadtree
             vim-tmux-navigator
@@ -237,8 +238,8 @@
             legendary-nvim
             bufferline-nvim
             auto-save-nvim
-            alpha-nvim
             dressing-nvim
+            hardtime-nvim
             pkgs.nixCatsBuilds.vim-schlepp
           ];
         };
@@ -268,6 +269,7 @@
         general = with pkgs.vimPlugins; [
           zen-mode-nvim
           nvim-web-devicons
+          flash-nvim
         ];
         org = with pkgs.vimPlugins; [
         ];

@@ -39,11 +39,9 @@ P.S. You can delete this when you're done too. It's your config now :)
 --]] --[[ ----------------------------------- ]] --[[ This setup function will provide    ]] --[[ a default value for the nixCats('') ]] --[[ function so that it will not throw  ]] --[[ an error if not loaded via nixCats  ]] --[[ ----------------------------------- ]] require(
     'nixCatsUtils').setup {non_nix_value = true}
 
-require('non-nix-download')
-
 require('core.opts')
 require('core.keys')
 require('core.styles')
-require('plugins')
+require('lazy-plugins')
 
 -- vim: ts=2 sts=2 sw=2 et
