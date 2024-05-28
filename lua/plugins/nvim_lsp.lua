@@ -3,6 +3,7 @@ if not require('nixCatsUtils.lazyCat').enableForCategory('general') then
 end
 
 return {
+
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
@@ -29,7 +30,16 @@ return {
             {'j-hui/fidget.nvim', opts = {}},
 
             -- Additional lua configuration, makes nvim stuff amazing!
-            {'folke/neodev.nvim'}, {'folke/neoconf.nvim'}
+            {'folke/neodev.nvim'}, {'folke/neoconf.nvim'}, {
+                'ray-x/navigator.lua',
+                dependencies = {
+                    {
+                        'ray-x/guihua.lua',
+                        build = require('nixCatsUtils.lazyCat').lazyAdd(
+                            'cd lua/fzy && make')
+                    }
+                }
+            }
         },
         config = function()
             local coq = require("coq")
@@ -52,7 +62,6 @@ return {
                 html = {filetypes = {'html', 'twig', 'hbs'}},
                 nixd = {},
                 nil_ls = {},
-
                 lua_ls = {
                     Lua = {
                         formatters = {ignoreComments = true},
@@ -65,6 +74,24 @@ return {
                 }
             }
 
+            local function get_keys(t)
+                local keys = {}
+                for key, _ in pairs(t) do table.insert(keys, key) end
+                return keys
+            end
+
+            local server_names = get_keys(servers)
+
+            local on_attach = function(client, bufnr)
+                require("navigator.lspclient.mapping").setup({
+                    client = client,
+                    bufnr = bufnr
+                }) -- setup navigator keymaps here,
+                require("navigator.dochighlight").documentHighlight(bufnr)
+                require("navigator.codeAction").code_action_prompt(bufnr)
+            end
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+
             -- Setup neovim lua configuration
             require('neodev').setup()
 
@@ -72,6 +99,11 @@ return {
                 plugins = {
                     lua_ls = {enabled = true, enabled_for_neovim_config = true}
                 }
+            })
+
+            require("navigator").setup({
+                mason = true,
+                lsp = {disable_lsp = server_names} -- disable pylsp setup from navigator
             })
 
             --[[ ------------------------------------- ]]

@@ -4,7 +4,7 @@ end
 
 return {
     'goolord/alpha-nvim',
-    dependencies = {'kyazdani42/nvim-web-devicons'},
+    dependencies = {'nvim-tree/nvim-web-devicons'},
     config = function()
         local function button(sc, txt, keybind)
             local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")

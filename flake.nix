@@ -122,6 +122,8 @@
           rust-analyzer
           nodePackages.typescript-language-server
           lua51Packages.lua-lsp
+          clang
+          clang-tools
         ];
 
         nix-dev = with pkgs; [
@@ -179,6 +181,8 @@
             coq-thirdparty
             nvim-lspconfig
             dropbar-nvim
+            pkgs.nixCatsBuilds.guihua-lua
+            pkgs.nixCatsBuilds.navigator-lua
           ];
           telescope = with pkgs.vimPlugins; [
             telescope-frecency-nvim
