@@ -37,6 +37,17 @@ importName: inputs: let
           sha256 = "TP1Fmu6LJFioPskUMWBG+rUNcaxejSF3Fqr5nT6htAY=";
         };
       };
+
+      smart-open-nvim = super.vimUtils.buildVimPlugin {
+        pname = "smart-open.nvim";
+        version = "2024-04-14";
+        src = super.fetchFromGitHub {
+          owner = "danielfalk";
+          repo = "smart-open.nvim";
+          rev = "0.2.x";
+          sha256 = "ro4qFdEAnE5u8wt7NyIc7OHobvjRotVX+LZ0P5as8EU=";
+        };
+      };
     };
   };
 in

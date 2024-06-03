@@ -1,8 +1,23 @@
 if not require('nixCatsUtils.lazyCat').enableForCategory('debug') then return {} end
 return {
-    {"nvim-neotest/nvim-nio"}, {"mfussenegger/nvim-dap"}, {
+    {
         "rcarriga/nvim-dap-ui",
-
-        dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"}
-    }, {"theHamsta/nvim-dap-virtual-text"}
+        opts = {},
+        keys = {
+            {
+                "<leader>dui",
+                function() require("dapui").toggle() end,
+                desc = "Toggle DAP-UI"
+            }
+        },
+        dependencies = {
+            {"mfussenegger/nvim-dap", lazy = true},
+            {"nvim-neotest/nvim-nio", lazy = true}, {
+                "theHamsta/nvim-dap-virtual-text",
+                dependencies = {'nvim-treesitter/nvim-treesitter'},
+                opts = {commented = true},
+                lazy = true
+            }
+        }
+    }
 }

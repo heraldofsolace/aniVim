@@ -7,6 +7,7 @@ return {
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
+        event = {"BufNewFile", "BufReadPost"},
         dependencies = {
             -- Automatically install LSPs to stdpath for neovim
             --[[ ----------------------------------------- ]]
@@ -142,6 +143,6 @@ return {
             end
 
         end
-    }, {'Bekaboo/dropbar.nvim'}
+    }, {'Bekaboo/dropbar.nvim', event = {"BufNewFile", "BufReadPost"}}
 }
 

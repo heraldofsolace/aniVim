@@ -8,7 +8,23 @@ return {
 
         branch = '0.1.x',
         cmd = 'Telescope',
-        dependencies = {{'nvim-lua/plenary.nvim'}},
+        dependencies = {
+            {'nvim-lua/plenary.nvim', lazy = true}, {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                -- NOTE: If you are having trouble with this installation,
+                --       refer to the README for telescope-fzf-native for more instructions.
+                --[[ --------------------------------- ]]
+                --[[ Uh-oh! This one has a build step! ]]
+                --[[ Nix has already done that for us. ]]
+                --[[ Use the lazyAdd function to       ]]
+                --[[ disable build steps on nix.       ]]
+                --[[ --------------------------------- ]]
+                build = require('nixCatsUtils.lazyCat').lazyAdd('make'),
+                cond = require('nixCatsUtils.lazyCat').lazyAdd(function()
+                    return vim.fn.executable 'make' == 1
+                end)
+            }
+        },
         config = function()
             local telescope = require("telescope")
 
@@ -137,7 +153,7 @@ return {
                     description = "Telescope colorscheme",
                     opts = {noremap = true}
                 }, {
-                    '<leader><leader>',
+                    '<leader>frc',
                     ':Telescope frecency',
                     description = "Telescope frecency",
                     opts = {noremap = true}

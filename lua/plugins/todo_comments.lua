@@ -3,6 +3,7 @@ if not require('nixCatsUtils.lazyCat').enableForCategory('general') then
 end
 return {
     "folke/todo-comments.nvim",
-    dependencies = {"nvim-lua/plenary.nvim"},
+    event = {"BufNewFile", "BufReadPost"},
+    dependencies = {"nvim-lua/plenary.nvim", lazy = true},
     opts = {}
 }

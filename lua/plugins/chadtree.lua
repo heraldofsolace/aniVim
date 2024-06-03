@@ -10,6 +10,7 @@ return {
 
         require('legendary').keymap({'<leader>ch', '<cmd>CHADopen<CR>'})
 
-    end
+    end,
+    command = {"CHADopen"}
 }
 

@@ -6,6 +6,7 @@ return {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {{'nvim-treesitter/nvim-treesitter-textobjects'}},
+    event = {"BufNewFile", "BufReadPost"},
     build = require('nixCatsUtils.lazyCat').lazyAdd(':TSUpdate'),
     config = function()
         local parser_configs =

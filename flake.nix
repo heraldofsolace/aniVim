@@ -159,40 +159,16 @@
         lazy = with pkgs.vimPlugins; [
           lazy-nvim
         ];
-        debug = with pkgs.vimPlugins; [
-          pkgs.neovimPlugins.nvim-nio
-          nvim-dap
-          nvim-dap-ui
-          nvim-dap-virtual-text
-        ];
+
         lint = with pkgs.vimPlugins; [
           nvim-lint
         ];
-        format = with pkgs.vimPlugins; [
-          conform-nvim
-        ];
+
         general = {
           gitPlugins = with pkgs.neovimPlugins; [
             hlargs
           ];
-          cmp = with pkgs.vimPlugins; [
-            coq_nvim
-            coq-artifacts
-            coq-thirdparty
-            nvim-lspconfig
-            dropbar-nvim
-            pkgs.nixCatsBuilds.guihua-lua
-            pkgs.nixCatsBuilds.navigator-lua
-          ];
-          telescope = with pkgs.vimPlugins; [
-            telescope-frecency-nvim
-            plenary-nvim
-            telescope-nvim
-          ];
-          treesitter = with pkgs.vimPlugins; [
-            nvim-treesitter-textobjects
-            nvim-treesitter.withAllGrammars
-          ];
+
           org = with pkgs.vimPlugins; [
             vimwiki
             neorg
@@ -227,15 +203,10 @@
             wildfire-vim
             editorconfig-nvim
             lush-nvim
-            # flash-nvim
-            trouble-nvim
-            chadtree
             vim-tmux-navigator
             alpha-nvim
-            todo-comments-nvim
             twilight-nvim
             direnv-vim
-            vimtex
             vim-peekaboo
             kommentary
             sqlite-lua
@@ -264,6 +235,36 @@
       # use with packadd and an autocommand in config to achieve lazy loading
       optionalPlugins = {
         custom = with pkgs.nixCatsBuilds; [];
+        format = with pkgs.vimPlugins; [
+          conform-nvim
+        ];
+        debug = with pkgs.vimPlugins; [
+          pkgs.neovimPlugins.nvim-nio
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-virtual-text
+        ];
+        treesitter = with pkgs.vimPlugins; [
+          nvim-treesitter-textobjects
+          nvim-treesitter.withAllGrammars
+        ];
+        telescope = with pkgs.vimPlugins; [
+          telescope-frecency-nvim
+          plenary-nvim
+          telescope-nvim
+          telescope-fzf-native-nvim
+          pkgs.nixCatsBuilds.smart-open-nvim
+        ];
+
+        cmp = with pkgs.vimPlugins; [
+          coq_nvim
+          coq-artifacts
+          coq-thirdparty
+          nvim-lspconfig
+          dropbar-nvim
+          pkgs.nixCatsBuilds.guihua-lua
+          pkgs.nixCatsBuilds.navigator-lua
+        ];
         gitPlugins = with pkgs.vimPlugins; [
           lazygit-nvim
         ];
@@ -273,6 +274,10 @@
         general = with pkgs.vimPlugins; [
           zen-mode-nvim
           nvim-web-devicons
+          todo-comments-nvim
+          vimtex
+          chadtree
+          trouble-nvim
           flash-nvim
         ];
         org = with pkgs.vimPlugins; [

@@ -1,4 +1,4 @@
 if not require('nixCatsUtils.lazyCat').enableForCategory('format') then return
     {} end
 
-return {'stevearc/conform.nvim', opts = {}}
+return {'stevearc/conform.nvim', opts = {}, event = "BufWritePre"}
