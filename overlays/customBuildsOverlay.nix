@@ -48,6 +48,17 @@ importName: inputs: let
           sha256 = "ro4qFdEAnE5u8wt7NyIc7OHobvjRotVX+LZ0P5as8EU=";
         };
       };
+
+      inlay-hints-nvim = super.vimUtils.buildVimPlugin {
+        pname = "inlay-hints.nvim";
+        version = "2024-05-28";
+        src = super.fetchFromGitHub {
+          owner = "MysticalDevil";
+          repo = "inlay-hints.nvim";
+          rev = "5526103e4b80c66234e60c8d92dad967d0e1bcd7";
+          sha256 = "x5dTTEib5JsgxkHxMSU1bYyoifZ1x3nn97W4bnAF5r4=";
+        };
+      };
     };
   };
 in

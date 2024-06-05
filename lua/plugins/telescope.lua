@@ -80,7 +80,9 @@ return {
 
             telescope.load_extension("lazygit")
             telescope.load_extension("frecency")
-
+            if require('nixCatsUtils.lazyCat').enableForCategory('general') then
+                telescope.load_extension("noice")
+            end
             local keymaps = {
                 {
                     '<leader>ff',

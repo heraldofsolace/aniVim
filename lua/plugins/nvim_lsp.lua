@@ -56,10 +56,68 @@ return {
             --  define the property 'filetypes' to the map in question.
             local servers = {
                 clangd = {},
-                gopls = {},
+                gopls = {
+                    hints = {
+                        rangeVariableTypes = true,
+                        parameterNames = true,
+                        constantValues = true,
+                        assignVariableTypes = true,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        functionTypeParameters = true
+                    }
+
+                },
                 pyright = {},
-                rust_analyzer = {},
-                tsserver = {},
+                rust_analyzer = {
+                    inlayHints = {
+                        bindingModeHints = {enable = false},
+                        chainingHints = {enable = true},
+                        closingBraceHints = {enable = true, minLines = 25},
+                        closureReturnTypeHints = {enable = "never"},
+                        lifetimeElisionHints = {
+                            enable = "never",
+                            useParameterNames = false
+                        },
+                        maxLength = 25,
+                        parameterHints = {enable = true},
+                        reborrowHints = {enable = "never"},
+                        renderColons = true,
+                        typeHints = {
+                            enable = true,
+                            hideClosureInitialization = false,
+                            hideNamedConstructor = false
+                        }
+                    }
+                },
+                tsserver = {
+
+                    typescript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true
+                        }
+                    },
+                    javascript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true
+                        }
+                    }
+
+                },
                 html = {filetypes = {'html', 'twig', 'hbs'}},
                 nixd = {},
                 nil_ls = {},
@@ -67,7 +125,8 @@ return {
                     Lua = {
                         formatters = {ignoreComments = true},
                         signatureHelp = {enabled = true},
-                        diagnostics = {globals = {"nixCats"}}
+                        diagnostics = {globals = {"nixCats"}},
+                        hint = {enable = true}
                     },
                     workspace = {checkThirdParty = true},
                     telemetry = {enabled = false},
@@ -84,6 +143,16 @@ return {
             local server_names = get_keys(servers)
 
             local on_attach = function(client, bufnr)
+                require("legendary").keymap({
+                    '<leader>ih',
+                    function()
+                        vim.lsp.inlay_hint.enable(
+                            not vim.lsp.inlay_hint.is_enabled({nil}))
+                    end,
+                    description = 'Toggle inlay hints',
+                    opts = {silent = true, noremap = true}
+
+                })
                 require("navigator.lspclient.mapping").setup({
                     client = client,
                     bufnr = bufnr
@@ -143,6 +212,16 @@ return {
             end
 
         end
-    }, {'Bekaboo/dropbar.nvim', event = {"BufNewFile", "BufReadPost"}}
+    }, {'Bekaboo/dropbar.nvim', event = {"BufNewFile", "BufReadPost"}}, {
+        "MysticalDevil/inlay-hints.nvim",
+        event = "LspAttach",
+        dependencies = {"neovim/nvim-lspconfig"},
+        config = function()
+            require("inlay-hints").setup({
+                commands = {enable = true}, -- Enable InlayHints commands, include `InlayHintsToggle`, `InlayHintsEnable` and `InlayHintsDisable`
+                autocmd = {enable = true} -- Enable the inlay hints on `LspAttach` event
+            })
+        end
+    }
 }
 

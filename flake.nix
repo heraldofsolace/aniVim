@@ -215,6 +215,10 @@
             auto-save-nvim
             dressing-nvim
             hardtime-nvim
+            oil-nvim
+            noice-nvim
+            nvim-notify
+            nui-nvim
             pkgs.nixCatsBuilds.vim-schlepp
           ];
         };
@@ -264,6 +268,7 @@
           dropbar-nvim
           pkgs.nixCatsBuilds.guihua-lua
           pkgs.nixCatsBuilds.navigator-lua
+          pkgs.nixCatsBuilds.inlay-hints-nvim
         ];
         gitPlugins = with pkgs.vimPlugins; [
           lazygit-nvim

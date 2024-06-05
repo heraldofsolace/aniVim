@@ -53,7 +53,7 @@ vim.opt.whichwrap:append({h = true, l = true})
 vim.opt.foldcolumn = "2"
 vim.opt.signcolumn = "yes"
 
-vim.opt.lazyredraw = true
+-- vim.opt.lazyredraw = true
 vim.opt.magic = true
 vim.opt.showmatch = true
 vim.opt.wildmode = "longest:list,full"
