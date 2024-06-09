@@ -1,5 +1,22 @@
+function interp(s, tab)
+    return (s:gsub('($%b{})', function(w) return tab[w:sub(3, -2)] or w end))
+end
+getmetatable("").__mod = interp
+
+keys = {left = "a", down = "e", up = "i", right = "h"}
+
+if vim.g.keyboard_layout and vim.g.keyboard_layout == "qwerty" then
+    keys.left = "h"
+    keys.down = "j"
+    keys.up = "k"
+    keys.right = "l"
+end
 local keymaps = {
-    -- Splits
+    -- Navigation
+    {keys.left, 'h', opts = {noremap = true}},
+    {keys.down, 'j', opts = {noremap = true}},
+    {keys.up, 'k', opts = {noremap = true}},
+    {keys.right, 'l', opts = {noremap = true}}, -- Splits
     {'<leader>|', ':vsplit<cr>'}, {'<leader>-', ':split<cr>'},
     -- No-op for arrows
     {'<Up>', ''}, {'<Down>', ''}, {'<Left>', ''}, {'<Right>', ''}, -- Save
@@ -15,17 +32,17 @@ local keymaps = {
         opts = {noremap = true},
         mode = 'v'
     }, -- Window navigation
-    {'<C-j>', '<C-W>j'}, {'<C-k>', '<C-W>k'}, {'<C-h>', '<C-W>h'},
-    {'<C-l>', '<C-W>l'}, -- Buffer and tabs
+    {'<C-${down}>' % keys, '<C-W>j'}, {'<C-${up}>' % keys, '<C-W>k'},
+    {'<C-${left}>' % keys, '<C-W>h'}, {'<C-${right}>' % keys, '<C-W>l'}, -- Buffer and tabs
     {'<leader>bd', ':Bclose<cr>:tabclose<cr>gT'},
-    {'<leader>ba', ':bufdo bd<cr>'}, {'<leader>l', ':BufferLineCycleNext<cr>'},
-    {'<leader>h', ':BufferLineCyclePrevious<cr>'},
-    {'<leader>tn', ':tabnew<cr>'}, {'<leader>tc', ':tabclose<cr>'},
-    {'<leader>tm', ':tabmove'}, {'<leader>tt', ':tabnext<cr>'},
+    {'<leader>ba', ':bufdo bd<cr>'}, {'<leader>${right}' % keys, ':bnext<cr>'},
+    {'<leader>${left}' % keys, ':bprevious<cr>'}, {'<leader>tn', ':tabnew<cr>'},
+    {'<leader>tc', ':tabclose<cr>'}, {'<leader>tm', ':tabmove'},
+    {'<leader>tt', ':tabnext<cr>'},
     {'<leader>tl', ':exe "tabn ".g:lasttab<CR>'},
     {'<leader>te', ':tabedit <c-r>=expand("%:p:h")<cr>/'},
     -- Scrolling with j and k
-    {'j', 'gj'}, {'k', 'gk'}, -- Spell
+    {keys.down, 'gj'}, {keys.up, 'gk'}, -- Spell
     {'<leader>sn', ']s'}, {'<leader>sp', '[s'}, {'<leader>sa', 'zg'},
     {'<leader>s?', 'z='}, {'<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', mode = 'i'},
 
