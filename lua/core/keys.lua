@@ -3,7 +3,7 @@ function interp(s, tab)
 end
 getmetatable("").__mod = interp
 
-keys = {left = "a", down = "e", up = "i", right = "h"}
+keys = {left = "s", down = "n", up = "m", right = "t"}
 
 if vim.g.keyboard_layout and vim.g.keyboard_layout == "qwerty" then
     keys.left = "h"
